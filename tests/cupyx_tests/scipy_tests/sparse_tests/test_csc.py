@@ -314,6 +314,15 @@ class TestCscMatrixInit(unittest.TestCase):
         self.assertEqual(s.size, 0)
         return s
 
+    @testing.numpy_cupy_allclose(sp_name='sp', atol=1e-5)
+    def test_intlike_shape(self, xp, sp):
+        s = sp.csc_matrix((self.data(xp), self.indices(xp), self.indptr(xp)),
+                          shape=(xp.array(self.shape[0]),
+                                 xp.int32(self.shape[1])))
+        assert isinstance(s.shape[0], int)
+        assert isinstance(s.shape[1], int)
+        return s
+
     @testing.numpy_cupy_raises(sp_name='sp')
     def test_shape_invalid(self, xp, sp):
         sp.csc_matrix(
@@ -999,6 +1008,8 @@ class TestCsrMatrixGetitem(unittest.TestCase):
     def test_getitem_slice_negative(self, xp, sp):
         return _make(xp, sp, self.dtype)[:, -2:-1]
 
+    # avoid segfault: https://github.com/scipy/scipy/issues/11125
+    @testing.with_requires('scipy!=1.3.*')
     @testing.numpy_cupy_raises(sp_name='sp', accept_error=IndexError)
     def test_getitem_slice_start_larger_than_stop(self, xp, sp):
         _make(xp, sp, self.dtype)[:, 3:2]
