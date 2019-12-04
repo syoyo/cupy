@@ -1,8 +1,6 @@
-name: Upload Python Package
+name: ROCm build
 
-on:
-  release:
-    types: [created]
+on: [push]
 
 jobs:
   deploy:
