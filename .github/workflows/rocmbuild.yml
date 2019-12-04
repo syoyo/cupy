@@ -18,11 +18,17 @@ jobs:
         wget -qO - http://repo.radeon.com/rocm/apt/debian/rocm.gpg.key | sudo apt-key add -
         echo 'deb [arch=amd64] http://repo.radeon.com/rocm/apt/debian/ xenial main' | sudo tee /etc/apt/sources.list.d/rocm.list
         sudo apt-get update
-        sudo apt-get install -y rocm-dev 
+        sudo apt-get install -y rocm-dev
+        sudo apt install -y hipblas hipsparse rocrand rocthrust
+        sudo apt install -y g++
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        HCC_AMDGPU_TARGET: gfx900
+        __HIP_PLATFORM_HCC__: 1
+        CUPY_INSTALL_USE_HIP: 1
       run: |
-        python setup.py sdist bdist_wheel
-        twine upload dist/*
+        pip install .
+        # python setup.py sdist bdist_wheel
+        # twine upload dist/*
