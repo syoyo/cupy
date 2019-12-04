@@ -26,8 +26,12 @@ jobs:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         HCC_AMDGPU_TARGET: gfx900
-        __HIP_PLATFORM_HCC__: 1
+        __HIP_PLATFORM_HCC__: ''
         CUPY_INSTALL_USE_HIP: 1
+        ROCM_HOME: /opt/rocm
+        NVCC: hcc
+        CUDA_PATH: ${ROCM_HOME}/bin
+        PATH: ${ROCM_HOME}/bin:${PATH}
       run: |
         pip install .
         # python setup.py sdist bdist_wheel
