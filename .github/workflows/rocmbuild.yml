@@ -31,7 +31,7 @@ jobs:
         CUPY_INSTALL_USE_HIP: 1
         ROCM_HOME: /opt/rocm
         NVCC: hcc
-        CUDA_PATH: ${ROCM_HOME}/bin
+        CUDA_PATH: ${ROCM_HOME}
         PATH: ${ROCM_HOME}/bin:${PATH}
       run: |
         pip install .
