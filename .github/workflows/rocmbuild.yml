@@ -32,8 +32,7 @@ jobs:
         CUPY_INSTALL_USE_HIP: 1
         ROCM_HOME: /opt/rocm
         NVCC: hcc
-        CUDA_PATH: ${ROCM_HOME}
-        PATH: ${ROCM_HOME}/bin:${PATH}
+        CUDA_PATH: /opt/rocm
       run: |
         python setup.py build
         # python setup.py sdist bdist_wheel
