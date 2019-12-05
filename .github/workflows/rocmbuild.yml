@@ -34,6 +34,6 @@ jobs:
         CUDA_PATH: ${ROCM_HOME}
         PATH: ${ROCM_HOME}/bin:${PATH}
       run: |
-        pip install .
+        python setup.py build
         # python setup.py sdist bdist_wheel
         # twine upload dist/*
