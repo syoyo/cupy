@@ -31,7 +31,7 @@ jobs:
         __HIP_PLATFORM_HCC__: ''
         CUPY_INSTALL_USE_HIP: 1
         ROCM_HOME: /opt/rocm
-        NVCC: hcc
+        NVCC: /opt/rocm/bin/hcc 
         CUDA_PATH: /opt/rocm
       run: |
         python setup.py build
